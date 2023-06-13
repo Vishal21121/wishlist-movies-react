@@ -1,6 +1,19 @@
-import React from 'react'
+import React, { useState } from 'react'
+import {useNavigate} from "react-router-dom"
+import {account} from "../appwrite/appwriteConfig"
 
 const Signup = () => {
+    const navigate = useNavigate()
+    const [user, setUser] = useState({
+        Name:"",
+        Email:"",
+        Password:"",
+    })
+    promise.then(function (response) {
+        console.log(response);
+    }, function (error) {
+        console.log(error);
+    });
     return (
         <>
             <div id="alert">
