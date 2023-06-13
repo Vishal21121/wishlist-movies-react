@@ -1,5 +1,7 @@
 import React from 'react'
+import { useNavigate } from "react-router-dom"
 const Login = () => {
+    const navigate = useNavigate()
     return (
         <>  
             <div id="alert">
@@ -17,7 +19,10 @@ const Login = () => {
                     </div>
                     <button className="bg-[#FF7518] hover:bg-[#FF4433] w-3/4 ml-16 mt-4 p-2 rounded-lg text-white" id="submit" >Sign in</button>
                     <p className="w-3/4 ml-16 mt-4 text-center font-semibold text-lg text-white">OR</p>
-                    <button className="bg-[#FF7518] hover:bg-[#FF4433] w-3/4 ml-16 mt-2 p-2 rounded-lg text-white" id="signup" onClick={()=>location.href=`${location.origin}/signup`}>Sign Up</button>
+                    <button className="bg-[#FF7518] hover:bg-[#FF4433] w-3/4 ml-16 mt-2 p-2 rounded-lg text-white" id="signup" onClick={(e)=>{
+                        e.preventDefault()
+                        navigate("/signup")
+                        }}>Sign Up</button>
                 </div>
             </div>
         </>

@@ -11,15 +11,15 @@ function App() {
 
   return (
     <>
-      {/* <BrowserRouter>
+      <BrowserRouter>
             <Routes>
                 <Route path='/' element={<Login/>}/>
                 <Route path='/signup' element={<Signup/>}/>
                 <Route path='/movies' element={<Card/>}/>
                 <Route path='/movies' element={<Movies/>}/>
             </Routes>
-      </BrowserRouter> */}
-      <Movies></Movies>
+      </BrowserRouter>
+      {/* <Movies></Movies> */}
     </>
   )
 }
