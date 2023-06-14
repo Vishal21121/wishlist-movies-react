@@ -4,17 +4,17 @@ import Card from './Card'
 const Movies = () => {
 
     const [data, setData] = useState("")
-    const fetchData = async()=>{
+    const fetchData = async () => {
         let response = await fetch('https://api.themoviedb.org/3/movie/now_playing?api_key=702a5d9a8a5513094a5fcf009d15249a&language=en-US&page=1')
         let val = await response.json();
         // console.log(val);
         setData(val["results"]);
     }
     useEffect(() => {
-      fetchData()
-      console.log(data);
+        fetchData()
+        console.log(data);
     }, [])
-    
+
     return (
         <>
             <header
@@ -45,15 +45,15 @@ const Movies = () => {
                     id="Watchlist">Wishlist</button>
                 <button className="text-white bg-blue-700  rounded-lg font-semibold  text-base hover:bg-gradient-to-r from-blue-800 to-[#0B0C10] px-4 py-4 text-center" id="signout">Sign Out</button>
             </header>
-            <div className="flex overflow-y-hidden flex-wrap justify-evenly mx-auto my-auto" id="cards-show">
-                {
-                    Array.from(data).map(({backdrop_path,original_title,overview,release_date,popularity})=>{
-                        
-                        return <Card backdrop_path={backdrop_path} original_title={original_title} overview={overview} release_date={release_date} popularity={popularity}></Card>
-                    })
+                <div className="flex overflow-y-hidden flex-wrap justify-evenly mx-auto my-auto" id="cards-show">
+                    {
+                        !data ? "" : Array.from(data).map(({ backdrop_path, original_title, overview, release_date, popularity }) => {
 
-                }
-            </div>
+                            return <Card backdrop_path={backdrop_path} original_title={original_title} overview={overview} release_date={release_date} popularity={popularity}></Card>
+                        })
+
+                    }
+                </div>
         </>
     )
 }
