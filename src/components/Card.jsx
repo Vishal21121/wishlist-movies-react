@@ -1,5 +1,5 @@
 import React from 'react'
-const Card = ({ id, backdrop_path, original_title, overview, release_date, popularity, addMovie,userid }) => {
+const Card = ({ id, backdrop_path, original_title, overview, release_date, popularity, addMovie }) => {
 
     return (
         <>

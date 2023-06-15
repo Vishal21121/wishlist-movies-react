@@ -1,8 +1,8 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useNavigate} from "react-router-dom"
-const Navbar = ({isSignin, handleLogOut,handleWishlist}) => {
+const Navbar = ({isSignin, handleLogOut,handleWishlist,wishlistNav,searchMovie}) => {
     const navigate = useNavigate()
-
+    const [val, setVal] = useState("")
     // navigating the user to derired page for button click on sigin
     const navigateLogin = () => {
         if(!isSignin){
@@ -29,18 +29,18 @@ const Navbar = ({isSignin, handleLogOut,handleWishlist}) => {
                             </svg>
                         </div>
                         <div className="w-full">
-                            <input type="text" className="bg-gray-600  w-11/12 text-white h-12 border-none focus:outline-none" placeholder="Search Your favourite movies" id="input" />
+                            <input type="text" className="bg-gray-600  w-11/12 text-white h-12 border-none focus:outline-none" placeholder="Search Your favourite movies" id="input" onChange={(e)=>setVal(e.target.value)} />
                         </div>
                         <div>
                             <button
                                 className="text-white bg-blue-700 py-2 rounded-lg font-semibold px-5 text-base hover:bg-gradient-to-r from-blue-800 to-[#0B0C10] mt-1"
-                                id="search">Search</button>
+                                id="search" onClick={()=>searchMovie(val)}>Search</button>
                         </div>
                     </div>
                 </div>{
                     isSignin ? <button
                     className="text-white bg-blue-700 rounded-lg font-semibold text-base hover:bg-gradient-to-r from-blue-800 to-[#0B0C10] px-4 py-4 text-center "
-                    id="Watchlist" onClick={handleWishlist}>Wishlist</button> : ""
+                    id="Watchlist" onClick={handleWishlist}>{wishlistNav}</button> : ""
                 }
                 
                 <button className="text-white bg-blue-700  rounded-lg font-semibold  text-base hover:bg-gradient-to-r from-blue-800 to-[#0B0C10] px-4 py-4 text-center" id="signout" onClick={navigateLogin} >{isSignin ? "Sign Out" : "Sign In"}</button>
