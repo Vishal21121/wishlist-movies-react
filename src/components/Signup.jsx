@@ -13,7 +13,7 @@ const Signup = () => {
         const promise = account.create(uuidv4(), user.Email, user.Password, user.Name)
         promise.then(function (response) {
             console.log(response);
-            navigate("/movies")
+            navigate("/")
         }, function (error) {
             console.log(error);
         });

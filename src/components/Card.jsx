@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Card = ({backdrop_path,original_title,overview,release_date,popularity}) => {
+const Card = ({id,backdrop_path,original_title,overview,release_date,popularity}) => {
     return (
         <>
             <div className="w-[300px] my-8 border-2 bg-gradient-to-b from-blue-800 to-[#0B0C10] shadow-xl shadow-gray-400 rounded-lg mx-2 h-[500px]">
