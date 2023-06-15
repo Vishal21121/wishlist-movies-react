@@ -3,6 +3,7 @@ import Card from './Card'
 import { useNavigate } from "react-router-dom"
 import { account, databases } from '../appwrite/appwriteConfig'
 import Navbar from './Navbar'
+import { Query } from 'appwrite'
 
 const Movies = () => {
     const navigate = useNavigate()
@@ -27,7 +28,7 @@ const Movies = () => {
                 setUserDetails(response)
                 // setting the signin to true means that the user is logged in
                 setIsSignin(true)
-                console.log("userDetails: ",userDetails);
+                console.log("userDetails: ", userDetails);
             },
             function (error) {
                 console.log(error);
@@ -39,7 +40,7 @@ const Movies = () => {
 
     useEffect(() => {
         fetchData()
-        console.log("data: ",data);
+        console.log("data: ", data);
     }, [])
 
     // handling the signout function
@@ -55,41 +56,60 @@ const Movies = () => {
 
     // handling the add movie option
     const addMovie = (e) => {
-        const addButton = e.target
-        let id = addButton.parentElement.parentElement.getAttribute("id")
-        let popularity = addButton.previousElementSibling.innerText.split(':')[1];
-        let release_date = addButton.previousElementSibling.previousElementSibling.innerText.split(':')[1]
-        let original_title = addButton.parentNode.previousElementSibling.children[0].innerText
-        let overview = addButton.parentNode.previousElementSibling.children[1].innerText
-        let backdrop_path = addButton.parentNode.parentNode.children[0].src
-        console.log("userId: ",userDetails["$id"]);
-        const data = {
-            id:userDetails["$id"],
-            backdrop_path: backdrop_path,
-            original_title: original_title,
-            overview: overview,
-            release_date: release_date,
-            popularity:popularity
+        if (!isSignin) {
+            navigate("/login")
+        } else {
+            const addButton = e.target
+            let id = addButton.parentElement.parentElement.getAttribute("id")
+            let popularity = addButton.previousElementSibling.innerText.split(':')[1];
+            let release_date = addButton.previousElementSibling.previousElementSibling.innerText.split(':')[1]
+            let original_title = addButton.parentNode.previousElementSibling.children[0].innerText
+            let overview = addButton.parentNode.previousElementSibling.children[1].innerText
+            let backdrop_path = addButton.parentNode.parentNode.children[0].src
+            console.log("userId: ", userDetails["$id"]);
+            const data = {
+                id: userDetails["$id"],
+                backdrop_path: backdrop_path,
+                original_title: original_title,
+                overview: overview,
+                release_date: release_date,
+                popularity: popularity
+            }
+            console.log("data: ", userDetails["$id"]);
+            const promise = databases.createDocument(import.meta.env.VITE_DATABASE_ID, import.meta.env.VITE_COLLECTION_ID, id, data)
+            promise.then(
+                function (response) {
+                    console.log(response);
+                },
+                function (err) {
+                    console.log(err);
+                }
+            )
         }
-        const promise = databases.createDocument(import.meta.env.VITE_DATABASE_ID, import.meta.env.VITE_COLLECTION_ID, id,data)
+
+    }
+
+    const handleWishlist = () => {
+        const promise = databases.listDocuments(import.meta.env.VITE_DATABASE_ID, import.meta.env.VITE_COLLECTION_ID, [Query.equal("id", userDetails["$id"])])
         promise.then(
-            function(response) {
+            function (response) {
                 console.log(response);
+                setData(response.documents)
             },
-            function(err) { 
+            function (err) {
                 console.log(err);
             }
         )
     }
 
     return (
-        <>  
-            <Navbar isSignin={isSignin} handleLogOut={handleLogOut}></Navbar>
+        <>
+            <Navbar isSignin={isSignin} handleLogOut={handleLogOut} handleWishlist={handleWishlist}></Navbar>
             <div className="flex overflow-y-hidden flex-wrap justify-evenly mx-auto my-auto" id="cards-show">
                 {
                     !data ? "Loading movies" : Array.from(data).map(({ id, backdrop_path, original_title, overview, release_date, popularity }) => {
 
-                        return <Card key={id} id={id} backdrop_path={backdrop_path} original_title={original_title} overview={overview} release_date={release_date} popularity={popularity} addMovie={addMovie}></Card>
+                        return <Card key={id} id={id} backdrop_path={backdrop_path} original_title={original_title} overview={overview} release_date={release_date} popularity={popularity} addMovie={addMovie} ></Card>
                     })
 
                 }

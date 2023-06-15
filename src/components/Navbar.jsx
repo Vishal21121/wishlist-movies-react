@@ -1,6 +1,6 @@
 import React from 'react'
 import { useNavigate} from "react-router-dom"
-const Navbar = ({isSignin, handleLogOut}) => {
+const Navbar = ({isSignin, handleLogOut,handleWishlist}) => {
     const navigate = useNavigate()
 
     // navigating the user to derired page for button click on sigin
@@ -40,7 +40,7 @@ const Navbar = ({isSignin, handleLogOut}) => {
                 </div>{
                     isSignin ? <button
                     className="text-white bg-blue-700 rounded-lg font-semibold text-base hover:bg-gradient-to-r from-blue-800 to-[#0B0C10] px-4 py-4 text-center "
-                    id="Watchlist">Wishlist</button> : ""
+                    id="Watchlist" onClick={handleWishlist}>Wishlist</button> : ""
                 }
                 
                 <button className="text-white bg-blue-700  rounded-lg font-semibold  text-base hover:bg-gradient-to-r from-blue-800 to-[#0B0C10] px-4 py-4 text-center" id="signout" onClick={navigateLogin} >{isSignin ? "Sign Out" : "Sign In"}</button>
