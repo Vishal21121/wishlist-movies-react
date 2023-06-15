@@ -11,6 +11,6 @@ client
 
 export const account = new Account(client);
 
-export const databases = new Databases(client,import.meta.env.VITE_DATABASE_ID);
+export const databases = new Databases(client);
 
 
