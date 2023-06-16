@@ -50,6 +50,7 @@ const Movies = () => {
             await account.deleteSession("current")
             setIsSignin(false)
             navigate("/")
+            fetchData()
         } catch (error) {
             console.log(error);
         }

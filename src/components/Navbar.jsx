@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { useNavigate} from "react-router-dom"
+
 const Navbar = ({isSignin, handleLogOut,handleWishlist,wishlistNav,searchMovie}) => {
     const navigate = useNavigate()
     const [val, setVal] = useState("")
@@ -17,7 +18,7 @@ const Navbar = ({isSignin, handleLogOut,handleWishlist,wishlistNav,searchMovie})
     <>
         <header
                 className="flex justify-evenly items-center h-24  bg-gradient-to-r from-[#0B0C10] to-blue-900 sticky top-0 z-10" id="header">
-                <h1 className="text-white text-4xl font-bold font-mono" id="heading">Latest Movies</h1>
+                <h1 className="text-white text-4xl font-bold font-mono" id="heading">{wishlistNav==="Previous"?"Wishlist Movies":"Latest Movies"}</h1>
                 <div>
                     <div
                         className="w-[50vw] bg-gray-600 mr-24 p-2  rounded-3xl flex align-middle focus:border-5 border-5 border-red-800 ">
