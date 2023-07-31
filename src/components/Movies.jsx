@@ -15,7 +15,7 @@ const Movies = () => {
     // initializing the useNavigate
     const navigate = useNavigate()
     // setting the initial state of the data
-    const [data, setData] = useState("")
+    const [data, setData] = useState([])
     // setting the initial state of the isSignin
     const [isSignin, setIsSignin] = useState(false)
     // setting the initial state of the userDetails
@@ -25,9 +25,10 @@ const Movies = () => {
 
     // using the fetchData method to fetch the value from the api of tmdb
     const fetchData = async () => {
-         // using the fetch api to make the get request to fetch the movies from the tmdb using the api key whihc we are accessing from the .env file.
+         // using the fetch api to make the get request to fetch the movies from the tmdb using the api key which we are accessing from the .env file.
         let response = await fetch(`https://api.themoviedb.org/3/movie/now_playing?api_key=${import.meta.env.VITE_API_KEY}&language=en-US&page=1`)
         let val = await response.json();
+        console.log(data);
         // setting the value of the movie using the setData method
         setData(val["results"]);
     }
@@ -115,6 +116,7 @@ const Movies = () => {
         // if wishlistNav state has Previous value then making it to Wishlist
         if (wishlistNav === "Previous") {
             setWishListNav("Wishlist");
+            setData([])
             // calling the fetch method to fetch the movies from the tmdb database using the api
             fetchData()
         } else {
@@ -123,10 +125,10 @@ const Movies = () => {
             promise.then(
                 function (response) {
                     console.log(response);
-                    // if everything goes welll swicth the wishlistNav value to Previos 
-                    setWishListNav("Previous")
                     // set the data using the setData method
                     setData(response.documents)
+                    // if everything goes welll swicth the wishlistNav value to Previos 
+                    setWishListNav("Previous")
 
                 },
                 function (err) {
@@ -154,9 +156,9 @@ const Movies = () => {
             <Navbar isSignin={isSignin} handleLogOut={handleLogOut} handleWishlist={handleWishlist} wishlistNav={wishlistNav} searchMovie={searchMovie}></Navbar>
             <div className="flex overflow-y-hidden flex-wrap justify-evenly mx-auto my-auto" id="cards-show">
                 {   
-                    !data ? "Loading movies" : data.length > 1 ? data.map(({ id, backdrop_path, original_title, overview, release_date, popularity }) => {
+                    !data ? "Loading movies" : data ? data.map(({ id, backdrop_path, original_title, overview, release_date, popularity }) => {
                         return <Card key={id} id={id}  backdrop_path={backdrop_path} original_title={original_title} overview={overview} release_date={release_date} popularity={popularity} addMovie={addMovie} ></Card>
-                    }) : <Card key={data.id} id={data.id}  backdrop_path={data.backdrop_path} original_title={data.original_title} overview={data.overview} release_date={data.release_date} popularity={data.popularity} addMovie={addMovie} ></Card>
+                    }) : <p className='text-white text-xl my-10'>Nothing to display</p>
 
                 }
             </div>
