@@ -14,7 +14,7 @@ const Card = ({ id, backdrop_path, original_title, overview, release_date, popul
                         className="inline-block w-auto bg-gray-300 p-1 rounded-md mx-2 text-xs text-black font-semibold hover:bg-gray-400 hover:cursor-pointer">Year: {release_date}
                     </span>
                     <span
-                        className="inline-block w-auto bg-gray-300 p-1 rounded-md mx-2 text-xs text-black font-semibold hover:bg-gray-400 hover:cursor-pointer">Rank:${popularity}
+                        className="inline-block w-auto bg-gray-300 p-1 rounded-md mx-2 text-xs text-black font-semibold hover:bg-gray-400 hover:cursor-pointer">popularity: {popularity}
                     </span>
                     <button
                         className="add  text-white w-16 bg-blue-500 py-2 rounded-md font-semibold text-xs hover:bg-gradient-to-r to-blue-800 from-[#0B0C10] relative mx-2 my-2" onClick={addMovie}>Add movie</button>
