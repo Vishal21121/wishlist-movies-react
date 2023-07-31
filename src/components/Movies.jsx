@@ -148,7 +148,7 @@ const Movies = () => {
         let val = await res.json()
         console.log("value: ",val['results'][0]);
         // setting the value using the setData method
-        setData(val['results'][0])
+        setData([val['results'][0]])
     }
 
     return (
